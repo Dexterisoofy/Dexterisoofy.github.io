@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabbed Website</title>
+  <style>
+    /* Basic styling for the tab navigation and content */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-tabs {
+      display: flex;
+      background-color: #333;
+      overflow: hidden;
+    }
+    .nav-tabs button {
+      background-color: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      color: white;
+      padding: 14px 16px;
+      transition: background-color 0.3s;
+    }
+    .nav-tabs button:hover {
+      background-color: #575757;
+    }
+    .nav-tabs button.active {
+      background-color: #ddd;
+      color: black;
+    }
+    .tab-content {
+      display: none;
+      padding: 20px;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tab Navigation -->
+  <div class="nav-tabs">
+    <button class="tab-link active" onclick="openTab(event, 'tab1')">Random Countryball</button>
+    <button class="tab-link" onclick="openTab(event, 'tab2')">Tab 2</button>
+    <button class="tab-link" onclick="openTab(event, 'tab3')">Tab 3</button>
+    <button class="tab-link" onclick="openTab(event, 'tab4')">Tab 4</button>
+    <button class="tab-link" onclick="openTab(event, 'tab5')">Tab 5</button>
+    <button class="tab-link" onclick="openTab(event, 'tab6')">Tab 6</button>
+    <button class="tab-link" onclick="openTab(event, 'tab7')">Tab 7</button>
+    <button class="tab-link" onclick="openTab(event, 'tab8')">Tab 8</button>
+    <button class="tab-link" onclick="openTab(event, 'tab9')">Tab 9</button>
+    <button class="tab-link" onclick="openTab(event, 'tab10')">Tab 10</button>
+  </div>
+
+  <!-- Tab Contents -->
+  <div id="tab1" class="tab-content active">
+    <h2>Random Countryball</h2>
+    <p id="random-name">Press the button to get a random countryball.</p>
+    <button onclick="pickRandomName()">Pick Random Name</button>
+    <script>
+      function pickRandomName() {
+        const names = [
+          "Italy",
+          "Ireland",
+          "Canada",
+          "Russian Empire",
+          "Prussia",
+          "Holy Roman Empire",
+          "South Korea",
+          "Byzantine Empire",
+          "T Canada",
+          "Kingdom of Rome",
+          "USA",
+          "USA's Son",
+          "Austria-Hungary",
+          "North Korea",
+          "Soviet Union",
+          "East Germany",
+          "Germany",
+          "UK",
+          "Brazil",
+          "Mexico",
+          "Pakistan",
+          "India",
+          "Poland",
+          "German Empire",
+          "Japan",
+          "Japanese Empire",
+          "France",
+          "Ukraine",
+          "Roman Empire",
+          "Russia",
+          "Qatar",
+          "China",
+          "Nazi"
+        ];
+        const randomIndex = Math.floor(Math.random() * names.length);
+        document.getElementById("random-name").innerText = names[randomIndex];
+      }
+    </script>
+  </div>
+
+  <div id="tab2" class="tab-content">
+    <h2>Tab 2</h2>
+    <p>Content for tab 2 will be added later.</p>
+  </div>
+
+  <div id="tab3" class="tab-content">
+    <h2>Tab 3</h2>
+    <p>Content for tab 3 will be added later.</p>
+  </div>
+
+  <div id="tab4" class="tab-content">
+    <h2>Tab 4</h2>
+    <p>Content for tab 4 will be added later.</p>
+  </div>
+
+  <div id="tab5" class="tab-content">
+    <h2>Tab 5</h2>
+    <p>Content for tab 5 will be added later.</p>
+  </div>
+
+  <div id="tab6" class="tab-content">
+    <h2>Tab 6</h2>
+    <p>Content for tab 6 will be added later.</p>
+  </div>
+
+  <div id="tab7" class="tab-content">
+    <h2>Tab 7</h2>
+    <p>Content for tab 7 will be added later.</p>
+  </div>
+
+  <div id="tab8" class="tab-content">
+    <h2>Tab 8</h2>
+    <p>Content for tab 8 will be added later.</p>
+  </div>
+
+  <div id="tab9" class="tab-content">
+    <h2>Tab 9</h2>
+    <p>Content for tab 9 will be added later.</p>
+  </div>
+
+  <div id="tab10" class="tab-content">
+    <h2>Tab 10</h2>
+    <p>Content for tab 10 will be added later.</p>
+  </div>
+
+  <script>
+    function openTab(evt, tabName) {
+      // Hide all tab contents
+      const tabContents = document.getElementsByClassName("tab-content");
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove("active");
+      }
+      // Remove active class from all buttons
+      const tabLinks = document.getElementsByClassName("tab-link");
+      for (let i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].classList.remove("active");
+      }
+      // Show the selected tab
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+  </script>
+
+</body>
+</html>
