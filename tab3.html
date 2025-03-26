@@ -45,7 +45,7 @@
       dot.className = 'dot';
 
       // Determine a random position for the dot within the viewport
-      const dotSize = 20;
+      const dotSize = 40;
       const maxX = window.innerWidth - dotSize;
       const maxY = window.innerHeight - dotSize;
       const posX = Math.random() * maxX;
@@ -68,7 +68,7 @@
         if (dot.parentElement) {
           dot.remove();
         }
-      }, 700);
+      }, 1500);
     }
 
     function gameLoop() {
