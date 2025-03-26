@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Countryball</title>
+  <style>
+    /* Include any necessary styles here */
+  </style>
+</head>
+<body>
+  <h2>Random Countryball</h2>
+  <p id="random-name">Press the button to get a random countryball.</p>
+  <button onclick="pickRandomName()">Pick Random Name</button>
+  <script>
+    function pickRandomName() {
+      const names = [
+        "Italy", "Ireland", "Canada", "Russian Empire", "Prussia",
+        "Holy Roman Empire", "South Korea", "Byzantine Empire", "T Canada",
+        "Kingdom of Rome", "USA", "USA's Son", "Austria-Hungary",
+        "North Korea", "Soviet Union", "East Germany", "Germany",
+        "UK", "Brazil", "Mexico", "Pakistan", "India", "Poland",
+        "German Empire", "Japan", "Japanese Empire", "France",
+        "Ukraine", "Roman Empire", "Russia", "Qatar", "China", "Nazi", "Vatican City"
+      ];
+      const randomIndex = Math.floor(Math.random() * names.length);
+      document.getElementById("random-name").innerText = names[randomIndex];
+    }
+  </script>
+</body>
+</html>
