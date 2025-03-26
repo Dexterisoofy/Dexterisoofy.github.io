@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click the Dot</title>
+  <style>
+    /* Include any necessary styles here */
+    .dot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    #score {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 24px;
+      color: #333;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <h2>Click the Dot</h2>
+  <!-- Click the Dot Game Content -->
+  <div id="score">Score: 0</div>
+  <script>
+    let score = 0;
+    const scoreDisplay = document.getElementById('score');
+    let gameLoopTimeout;
+
+    function updateScore() {
+      scoreDisplay.textContent = 'Score: ' + score;
+    }
+
+    function createDot() {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+
+      // Determine a random position for the dot within the viewport
+      const dotSize = 20;
+      const maxX = window.innerWidth - dotSize;
+      const maxY = window.innerHeight - dotSize;
+      const posX = Math.random() * maxX;
+      const posY = Math.random() * maxY;
+      dot.style.left = posX + 'px';
+      dot.style.top = posY + 'px';
+
+      // Increase score on click and remove the dot
+      dot.addEventListener('click', function(event) {
+        score++;
+        updateScore();
+        dot.remove();
+        event.stopPropagation();
+      });
+
+      document.body.appendChild(dot);
+
+      // Remove the dot after 300 milliseconds
+      setTimeout(() => {
+        if (dot.parentElement) {
+          dot.remove();
+        }
+      }, 300);
+    }
+
+    function gameLoop() {
+      createDot();
+      // Random delay between 500ms and 1500ms before creating the next dot
+      const delay = Math.random() * 1000 + 500;
+      gameLoopTimeout = setTimeout(gameLoop, delay);
+    }
+
+    function startGame() {
+      score = 0;
+      updateScore();
+      gameLoop();
+    }
+
+    function stopGame() {
+      clearTimeout(gameLoopTimeout);
+    }
+
+    // Start the game loop when the page loads
+    window.onload = startGame;
+    window.onunload = stopGame;
+  </script>
+</body>
+</html>
