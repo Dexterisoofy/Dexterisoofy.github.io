@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<h1>Timed Color Match</h1>
+    <div id="targetColor">Target Color: </div>
+    <div id="game-board"></div>
+    <div id="timer">Time: 0 ms</div>
+    <div id="message"></div>
+    <script>
+      // Array of predefined colors.
+      const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+      
+      const targetColorDiv = document.getElementById('targetColor');
+      const gameBoard = document.getElementById('game-board');
+      const timerDiv = document.getElementById('timer');
+      const messageDiv = document.getElementById('message');
+      
+      let targetColor = '';
+      let startTime;
+      let timerInterval;
+      
+      // Build the game board by creating a colored div for each color.
+      function setupGameBoard() {
+        gameBoard.innerHTML = '';
+        colors.forEach(color => {
+          const box = document.createElement('div');
+          box.classList.add('color-box');
+          box.style.backgroundColor = color;
+          box.dataset.color = color;
+          gameBoard.appendChild(box);
+        });
+      }
+      
+      // Start a new round by choosing a random target and starting the timer.
+      function startRound() {
+        targetColor = colors[Math.floor(Math.random() * colors.length)];
+        targetColorDiv.textContent = `Target Color: ${targetColor}`;
+        messageDiv.textContent = '';
+        
+        // Reset timer.
+        timerDiv.textContent = 'Time: 0 ms';
+        startTime = Date.now();
+        
+        // Update timer display every 50 milliseconds.
+        timerInterval = setInterval(() => {
+          const elapsed = Date.now() - startTime;
+          timerDiv.textContent = `Time: ${elapsed} ms`;
+        }, 50);
+      }
+      
+      // Listen for clicks on any of the colored boxes.
+      gameBoard.addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('color-box')) {
+          const clickedColor = e.target.dataset.color;
+          if (clickedColor === targetColor) {
+            // Successful match.
+            const reactionTime = Date.now() - startTime;
+            clearInterval(timerInterval);
+            messageDiv.textContent = `Well done! Your reaction time: ${reactionTime} ms.`;
+            
+            // Highlight the correct box.
+            e.target.style.border = "4px solid green";
+            
+            // Start a new round after a short delay.
+            setTimeout(() => {
+              // Reset borders for all boxes.
+              document.querySelectorAll('.color-box').forEach(box => {
+                box.style.border = "2px solid #ccc";
+              });
+              startRound();
+            }, 1000);
+          } else {
+            // Wrong choice.
+            messageDiv.textContent = 'Incorrect! Try again.';
+          }
+        }
+      });
+      // Initialize game board and start the first round.
+      setupGameBoard();
+      startRound();
+    </script>
