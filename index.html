@@ -156,6 +156,7 @@
     <script>
       let score = 0;
       const scoreDisplay = document.getElementById('score');
+      let gameLoopTimeout;
 
       function updateScore() {
         scoreDisplay.textContent = 'Score: ' + score;
@@ -193,14 +194,49 @@
       }
 
       function gameLoop() {
-        createDot();
-        // Random delay between 500ms and 1500ms before creating the next dot
-        const delay = Math.random() * 1000 + 500;
-        setTimeout(gameLoop, delay);
+        if (document.getElementById('tab3').classList.contains('active')) {
+          createDot();
+          // Random delay between 500ms and 1500ms before creating the next dot
+          const delay = Math.random() * 1000 + 500;
+          gameLoopTimeout = setTimeout(gameLoop, delay);
+        }
       }
 
-      // Start the game loop. (This runs regardless of tab visibility.)
-      gameLoop();
+      function startGame() {
+        score = 0;
+        updateScore();
+        gameLoop();
+      }
+
+      function stopGame() {
+        clearTimeout(gameLoopTimeout);
+      }
+
+      function openTab(evt, tabName) {
+        // Hide all tab contents
+        const tabContents = document.getElementsByClassName("tab-content");
+        Array.from(tabContents).forEach(tab => tab.classList.remove("active"));
+
+        // Remove active class from all nav buttons
+        const tabLinks = document.getElementsByClassName("tab-link");
+        Array.from(tabLinks).forEach(link => link.classList.remove("active"));
+
+        // Show the selected tab and mark its button as active
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+
+        // Start or stop the game based on the active tab
+        if (tabName === 'tab3') {
+          startGame();
+        } else {
+          stopGame();
+        }
+      }
+
+      // Initialize the game loop only when the tab3 is initially active
+      if (document.getElementById('tab3').classList.contains('active')) {
+        startGame();
+      }
     </script>
   </div>
 
