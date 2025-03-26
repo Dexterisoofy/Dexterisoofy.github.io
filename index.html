@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2030323978239566"
-    crossorigin="anonymous"></script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dexter's Site</title>
   <style>
     /* Basic styling for the page */
@@ -20,48 +18,22 @@
       background-color: #333;
       overflow: hidden;
     }
-    .nav-tabs button {
+    .nav-tabs a {
       background-color: inherit;
       border: none;
       outline: none;
       cursor: pointer;
       color: white;
       padding: 14px 16px;
+      text-decoration: none;
       transition: background-color 0.3s;
     }
-    .nav-tabs button:hover {
+    .nav-tabs a:hover {
       background-color: #575757;
     }
-    .nav-tabs button.active {
+    .nav-tabs a.active {
       background-color: #ddd;
       color: black;
-    }
-    .tab-content {
-      display: none;
-      padding: 20px;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    /* Click the Dot Game styles */
-    .dot {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    #score {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      font-size: 24px;
-      color: #333;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 5px 10px;
-      border-radius: 4px;
-      z-index: 1000;
     }
   </style>
 </head>
@@ -69,307 +41,17 @@
 
   <!-- Tab Navigation -->
   <div class="nav-tabs">
-    <button class="tab-link active" onclick="openTab(event, 'tab1')">Random Countryball</button>
-    <button class="tab-link" onclick="openTab(event, 'tab2')">Bidding Simulation</button>
-    <button class="tab-link" onclick="openTab(event, 'tab3')">Click the Dot</button>
-    <button class="tab-link" onclick="openTab(event, 'tab4')">Timed Color Match</button>
-    <button class="tab-link" onclick="openTab(event, 'tab5')">Tab 5</button>
-    <button class="tab-link" onclick="openTab(event, 'tab6')">Tab 6</button>
-    <button class="tab-link" onclick="openTab(event, 'tab7')">Tab 7</button>
-    <button class="tab-link" onclick="openTab(event, 'tab8')">Tab 8</button>
-    <button class="tab-link" onclick="openTab(event, 'tab9')">Tab 9</button>
-    <button class="tab-link" onclick="openTab(event, 'tab10')">Tab 10</button>
+    <a href="tab1.html">Random Countryball</a>
+    <a href="tab2.html">Bidding Simulation</a>
+    <a href="tab3.html">Click the Dot</a>
+    <a href="tab4.html">Timed Color Match</a>
+    <a href="tab5.html">Tab 5</a>
+    <a href="tab6.html">Tab 6</a>
+    <a href="tab7.html">Tab 7</a>
+    <a href="tab8.html">Tab 8</a>
+    <a href="tab9.html">Tab 9</a>
+    <a href="tab10.html">Tab 10</a>
   </div>
-
-  <!-- Tab Contents -->
-  <div id="tab1" class="tab-content active">
-    <h2>Random Countryball</h2>
-    <p id="random-name">Press the button to get a random countryball.</p>
-    <button onclick="pickRandomName()">Pick Random Name</button>
-    <script>
-      function pickRandomName() {
-        const names = [
-          "Italy", "Ireland", "Canada", "Russian Empire", "Prussia",
-          "Holy Roman Empire", "South Korea", "Byzantine Empire", "T Canada",
-          "Kingdom of Rome", "USA", "USA's Son", "Austria-Hungary",
-          "North Korea", "Soviet Union", "East Germany", "Germany",
-          "UK", "Brazil", "Mexico", "Pakistan", "India", "Poland",
-          "German Empire", "Japan", "Japanese Empire", "France",
-          "Ukraine", "Roman Empire", "Russia", "Qatar", "China", "Nazi"
-        ];
-        const randomIndex = Math.floor(Math.random() * names.length);
-        document.getElementById("random-name").innerText = names[randomIndex];
-      }
-    </script>
-  </div>
-
-  <div id="tab2" class="tab-content">
-    <h1>Try Your Luck! Place Your Bid</h1>
-    <div>
-      <input type="number" id="bidInput" placeholder="Enter your bid" step="0.01">
-      <button id="bidButton">Bid</button>
-    </div>
-    <div id="result"></div>
-    <h2>Session Stats</h2>
-    <p id="stats">Money Won: $0.00 | Money Lost: $0.00 | Net Result: $0.00</p>
-    <script>
-      let moneyWon = 0;
-      let moneyLost = 0;
-      document.getElementById("bidButton").addEventListener("click", () => {
-        const bidInput = document.getElementById("bidInput");
-        const resultDiv = document.getElementById("result");
-        const statsDiv = document.getElementById("stats");
-        const bidAmount = parseFloat(bidInput.value);
-        resultDiv.classList.remove("error");
-
-        if (isNaN(bidAmount) || bidAmount <= 0) {
-          resultDiv.textContent = "Please enter a valid bid amount.";
-          resultDiv.classList.add("error");
-          return;
-        }
-
-        // 10% chance to win
-        if (Math.random() < 0.10) {
-          const winAmount = bidAmount * 10;
-          moneyWon += winAmount;
-          resultDiv.textContent = "YOU WON $" + winAmount.toFixed(2) + "!";
-          // Display current session statistics
-          alert("Money Won: $" + moneyWon.toFixed(2) + " | Money Lost: $" + moneyLost.toFixed(2) + " | Net Result: $" + (moneyWon - moneyLost).toFixed(2));
-          // Reset session statistics
-          moneyWon = 0;
-          moneyLost = 0;
-        } else {
-          moneyLost += bidAmount;
-          resultDiv.textContent = "Sorry, better luck next time.";
-        }
-
-        statsDiv.textContent = "Money Won: $" + moneyWon.toFixed(2) + " | Money Lost: $" + moneyLost.toFixed(2) +
-                                " | Net Result: $" + (moneyWon - moneyLost).toFixed(2);
-      });
-    </script>
-  </div>
-
-  <div id="tab3" class="tab-content">
-    <h2>Click the Dot</h2>
-    <!-- Click the Dot Game Content -->
-    <div id="score">Score: 0</div>
-    <script>
-      let score = 0;
-      const scoreDisplay = document.getElementById('score');
-      let gameLoopTimeout;
-
-      function updateScore() {
-        scoreDisplay.textContent = 'Score: ' + score;
-      }
-
-      function createDot() {
-        if (!document.getElementById('tab3').classList.contains('active')) return;
-
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-
-        // Determine a random position for the dot within the viewport
-        const dotSize = 20;
-        const maxX = window.innerWidth - dotSize;
-        const maxY = window.innerHeight - dotSize;
-        const posX = Math.random() * maxX;
-        const posY = Math.random() * maxY;
-        dot.style.left = posX + 'px';
-        dot.style.top = posY + 'px';
-
-        // Increase score on click and remove the dot
-        dot.addEventListener('click', function(event) {
-          score++;
-          updateScore();
-          dot.remove();
-          event.stopPropagation();
-        });
-
-        document.body.appendChild(dot);
-
-        // Remove the dot after 300 milliseconds
-        setTimeout(() => {
-          if (dot.parentElement) {
-            dot.remove();
-          }
-        }, 300);
-      }
-
-      function gameLoop() {
-        if (document.getElementById('tab3').classList.contains('active')) {
-          createDot();
-          // Random delay between 500ms and 1500ms before creating the next dot
-          const delay = Math.random() * 1000 + 500;
-          gameLoopTimeout = setTimeout(gameLoop, delay);
-        }
-      }
-
-      function startGame() {
-        score = 0;
-        updateScore();
-        gameLoop();
-      }
-
-      function stopGame() {
-        clearTimeout(gameLoopTimeout);
-      }
-
-      function openTab(evt, tabName) {
-        // Hide all tab contents
-        const tabContents = document.getElementsByClassName("tab-content");
-        Array.from(tabContents).forEach(tab => tab.classList.remove("active"));
-
-        // Remove active class from all nav buttons
-        const tabLinks = document.getElementsByClassName("tab-link");
-        Array.from(tabLinks).forEach(link => link.classList.remove("active"));
-
-        // Show the selected tab and mark its button as active
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-
-        // Start or stop the game based on the active tab
-        if (tabName === 'tab3') {
-          startGame();
-        } else {
-          stopGame();
-        }
-      }
-
-      // Initialize the game loop only when the tab3 is initially active
-      if (document.getElementById('tab3').classList.contains('active')) {
-        startGame();
-      }
-    </script>
-  </div>
-
-    <!-- Tab Content for Timed Color Match (Tab 4) -->
-  <div id="tab4" class="tab-content">
-    <h1>Timed Color Match</h1>
-    <div id="targetColor">Target Color: </div>
-    <div id="game-board"></div>
-    <div id="timer">Time: 0 ms</div>
-    <div id="message"></div>
-    <script>
-      // Array of predefined colors.
-      const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
-      
-      const targetColorDiv = document.getElementById('targetColor');
-      const gameBoard = document.getElementById('game-board');
-      const timerDiv = document.getElementById('timer');
-      const messageDiv = document.getElementById('message');
-      
-      let targetColor = '';
-      let startTime;
-      let timerInterval;
-      
-      // Build the game board by creating a colored div for each color.
-      function setupGameBoard() {
-        gameBoard.innerHTML = '';
-        colors.forEach(color => {
-          const box = document.createElement('div');
-          box.classList.add('color-box');
-          box.style.backgroundColor = color;
-          box.dataset.color = color;
-          gameBoard.appendChild(box);
-        });
-      }
-      
-      // Start a new round by choosing a random target and starting the timer.
-      function startRound() {
-        targetColor = colors[Math.floor(Math.random() * colors.length)];
-        targetColorDiv.textContent = `Target Color: ${targetColor}`;
-        messageDiv.textContent = '';
-        
-        // Reset timer.
-        timerDiv.textContent = 'Time: 0 ms';
-        startTime = Date.now();
-        
-        // Update timer display every 50 milliseconds.
-        timerInterval = setInterval(() => {
-          const elapsed = Date.now() - startTime;
-          timerDiv.textContent = `Time: ${elapsed} ms`;
-        }, 50);
-      }
-      
-      // Listen for clicks on any of the colored boxes.
-      gameBoard.addEventListener('click', (e) => {
-        if (e.target && e.target.classList.contains('color-box')) {
-          const clickedColor = e.target.dataset.color;
-          if (clickedColor === targetColor) {
-            // Successful match.
-            const reactionTime = Date.now() - startTime;
-            clearInterval(timerInterval);
-            messageDiv.textContent = `Well done! Your reaction time: ${reactionTime} ms.`;
-            
-            // Highlight the correct box.
-            e.target.style.border = "4px solid green";
-            
-            // Start a new round after a short delay.
-            setTimeout(() => {
-              // Reset borders for all boxes.
-              document.querySelectorAll('.color-box').forEach(box => {
-                box.style.border = "2px solid #ccc";
-              });
-              startRound();
-            }, 1000);
-          } else {
-            // Wrong choice.
-            messageDiv.textContent = 'Incorrect! Try again.';
-          }
-        }
-      });
-      
-      // Initialize game board and start the first round.
-      setupGameBoard();
-      startRound();
-    </script>
-  </div>
-
-  <div id="tab5" class="tab-content">
-    <h2>Tab 5</h2>
-    <p>Content for tab 5 will be added later.</p>
-  </div>
-
-  <div id="tab6" class="tab-content">
-    <h2>Tab 6</h2>
-    <p>Content for tab 6 will be added later.</p>
-  </div>
-
-  <div id="tab7" class="tab-content">
-    <h2>Tab 7</h2>
-    <p>Content for tab 7 will be added later.</p>
-  </div>
-
-  <div id="tab8" class="tab-content">
-    <h2>Tab 8</h2>
-    <p>Content for tab 8 will be added later.</p>
-  </div>
-
-  <div id="tab9" class="tab-content">
-    <h2>Tab 9</h2>
-    <p>Content for tab 9 will be added later.</p>
-  </div>
-
-  <div id="tab10" class="tab-content">
-    <h2>Tab 10</h2>
-    <p>Content for tab 10 will be added later.</p>
-  </div>
-
-  <script>
-    function openTab(evt, tabName) {
-      // Hide all tab contents
-      const tabContents = document.getElementsByClassName("tab-content");
-      Array.from(tabContents).forEach(tab => tab.classList.remove("active"));
-      
-      // Remove active class from all nav buttons
-      const tabLinks = document.getElementsByClassName("tab-link");
-      Array.from(tabLinks).forEach(link => link.classList.remove("active"));
-      
-      // Show the selected tab and mark its button as active
-      document.getElementById(tabName).classList.add("active");
-      evt.currentTarget.classList.add("active");
-    }
-  </script>
 
 </body>
 </html>
