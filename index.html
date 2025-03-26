@@ -163,6 +163,8 @@
       }
 
       function createDot() {
+        if (!document.getElementById('tab3').classList.contains('active')) return;
+
         const dot = document.createElement('div');
         dot.className = 'dot';
 
@@ -226,7 +228,7 @@
         evt.currentTarget.classList.add("active");
 
         // Start or stop the game based on the active tab
-        if (tabName === 'tab3') {
+        if (tabName === 'Click the Dot') {
           startGame();
         } else {
           stopGame();
